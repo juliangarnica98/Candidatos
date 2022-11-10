@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('candidato', [CandidateController::class, 'store'])->name('candidato.store');
+Route::post('candidato', [CandidateController::class,'store'])->name('candidato.store');

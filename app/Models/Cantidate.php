@@ -16,7 +16,7 @@ class Cantidate extends Model
         'ide',
         'type_ide',
         'position',
-        'experience',
+        'experiencie',
         'cv',
         'status'
     ];

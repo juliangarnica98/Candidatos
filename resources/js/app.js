@@ -2,6 +2,7 @@ require('./bootstrap');
 import Vue from 'vue'
 	import Vuetify from 'vuetify'
 	import 'vuetify/dist/vuetify.min.css'
+	import axios from 'axios'
 
 	Vue.use(Vuetify)
 	Vue.component('form-component',require('./components/FormComponent.vue').default)

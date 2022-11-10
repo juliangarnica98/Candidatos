@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" max-width="500">
+        <v-card class="mx-auto" max-width="500">
             <v-container>
                 <v-row dense>
                     <v-col cols="12">
@@ -24,20 +24,21 @@
                             </v-row>  
                             <v-row>
                                 <v-col md="6">
-                                    <v-text-field v-model="position" :rules="nameRules" :counter="10"  label="Cargo *" required></v-text-field>
+                                    <v-text-field v-model="position" :counter="20"  label="Cargo *" required></v-text-field>
                                 </v-col>
                                 <v-col md="6">
-                                    <v-text-field v-model="cell" :rules="emailRules" label="Celular *" required type="number"></v-text-field>
+                                    <v-text-field v-model="cell" label="Celular *" required type="number"></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-text-field v-model="email" :rules="emailRules" label="Correo *" required type="email"></v-text-field>
-                            <v-text-field v-model="experience" :rules="nameRules" :counter="10"  label="Años de experiencia *" required></v-text-field>
+                            <v-text-field v-model="experiencie" :rules="nameRules" :counter="10"  label="Años de experiencia *" required></v-text-field>
                             <v-file-input label="Hoja de vida"></v-file-input>
                         
                             
                                 <v-card-actions>
+                                <v-btn color="error" @click="clearFields()" class="mr-4">Limpiar</v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn color="success" class="mr-4">Enviar</v-btn>
+                                <v-btn color="success" @click="saveCandidate()" class="mr-4">Enviar</v-btn>
                                 </v-card-actions>
                             
                             </v-form>
@@ -45,7 +46,8 @@
                     </v-col>
                 </v-row>
             </v-container>
-    </v-card> 
+        </v-card> 
+    
 </template>
 <script>
     export default {
@@ -58,7 +60,8 @@
             type_ide:'Cedula de cuidadania',
             ide:'',
             position:'',
-            experience:0,
+            experiencie:0,
+            update:0, 
             items: ['Cedula de cuidadania', 'Cedula extranjera', 'pasaporte' ,'Otro'],
             nameRules: [
                 v => !!v || 'Name is required',
@@ -70,5 +73,36 @@
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
         }),
+        methods:{
+            saveCandidate(){
+                let url = '/candidato' //Ruta que hemos creado para enviar una tarea y guardarla
+                axios.post(url,{ //estas variables son las que enviaremos para que crear el candidato
+                    name:this.name,
+                    last_name:this.last_name,
+                    email:this.email,
+                    cell:this.cell,
+                    type_ide:this.type_ide,
+                    ide:this.ide,
+                    position:this.position,
+                    experiencie:this.experiencie,
+                }).then(function (response) {
+                    me.clearFields();//Limpiamos los campos e inicializamos la variable update a 0
+                
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });   
+            },
+            clearFields(){/*Limpia los campos e inicializa la variable update a 0*/
+                    this.name='',
+                    this.last_name='',
+                    this.email='',
+                    this.cell=0,
+                    this.type_ide='',
+                    this.ide='',
+                    this.position='',
+                    this.experiencie=0
+            }
+        }
     }
 </script>

@@ -27,7 +27,7 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        $candidate = new Candidate;
+        $candidate = new Cantidate;
         $candidate->name=$request->name;
         $candidate->last_name=$request->last_name;
         $candidate->cell=$request->cell;
@@ -35,8 +35,8 @@ class CandidateController extends Controller
         $candidate->ide=$request->ide;
         $candidate->type_ide=$request->type_ide;
         $candidate->position=$request->ide;
-        $candidate->experience=$request->experience;
-        $candidate->cv=$request->cv;
+        $candidate->experiencie=$request->experiencie;
+        $candidate->cv="Direccion de hoja de vida";
         $candidate->status= 1;
         $candidate->save();
     }

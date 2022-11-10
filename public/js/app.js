@@ -2115,6 +2115,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2128,7 +2130,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type_ide: 'Cedula de cuidadania',
       ide: '',
       position: '',
-      experience: 0,
+      experiencie: 0,
+      update: 0,
       items: ['Cedula de cuidadania', 'Cedula extranjera', 'pasaporte', 'Otro'],
       nameRules: [function (v) {
         return !!v || 'Name is required';
@@ -2140,6 +2143,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, function (v) {
       return /.+@.+/.test(v) || 'E-mail must be valid';
     }]), _ref;
+  },
+  methods: {
+    saveCandidate: function saveCandidate() {
+      var url = '/candidato'; //Ruta que hemos creado para enviar una tarea y guardarla
+      axios.post(url, {
+        //estas variables son las que enviaremos para que crear el candidato
+        name: this.name,
+        last_name: this.last_name,
+        email: this.email,
+        cell: this.cell,
+        type_ide: this.type_ide,
+        ide: this.ide,
+        position: this.position,
+        experiencie: this.experiencie
+      }).then(function (response) {
+        me.clearFields(); //Limpiamos los campos e inicializamos la variable update a 0
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    clearFields: function clearFields() {
+      /*Limpia los campos e inicializa la variable update a 0*/
+      this.name = '', this.last_name = '', this.email = '', this.cell = 0, this.type_ide = '', this.ide = '', this.position = '', this.experiencie = 0;
+    }
   }
 });
 
@@ -2153,18 +2180,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_dist_vuetify_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuetify/dist/vuetify.min.css */ "./node_modules/vuetify/dist/vuetify.min.css");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use((vuetify__WEBPACK_IMPORTED_MODULE_2___default()));
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('form-component', (__webpack_require__(/*! ./components/FormComponent.vue */ "./resources/js/components/FormComponent.vue")["default"]));
-var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  vuetify: new (vuetify__WEBPACK_IMPORTED_MODULE_2___default())(),
+
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].use((vuetify__WEBPACK_IMPORTED_MODULE_3___default()));
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('form-component', (__webpack_require__(/*! ./components/FormComponent.vue */ "./resources/js/components/FormComponent.vue")["default"]));
+var app = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
+  vuetify: new (vuetify__WEBPACK_IMPORTED_MODULE_3___default())(),
   el: '#app'
 });
 
@@ -20274,8 +20304,7 @@ var render = function () {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      rules: _vm.nameRules,
-                                      counter: 10,
+                                      counter: 20,
                                       label: "Cargo *",
                                       required: "",
                                     },
@@ -20297,7 +20326,6 @@ var render = function () {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      rules: _vm.emailRules,
                                       label: "Celular *",
                                       required: "",
                                       type: "number",
@@ -20341,11 +20369,11 @@ var render = function () {
                               required: "",
                             },
                             model: {
-                              value: _vm.experience,
+                              value: _vm.experiencie,
                               callback: function ($$v) {
-                                _vm.experience = $$v
+                                _vm.experiencie = $$v
                               },
-                              expression: "experience",
+                              expression: "experiencie",
                             },
                           }),
                           _vm._v(" "),
@@ -20356,6 +20384,20 @@ var render = function () {
                           _c(
                             "v-card-actions",
                             [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mr-4",
+                                  attrs: { color: "error" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.clearFields()
+                                    },
+                                  },
+                                },
+                                [_vm._v("Limpiar")]
+                              ),
+                              _vm._v(" "),
                               _c("v-spacer"),
                               _vm._v(" "),
                               _c(
@@ -20363,6 +20405,11 @@ var render = function () {
                                 {
                                   staticClass: "mr-4",
                                   attrs: { color: "success" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.saveCandidate()
+                                    },
+                                  },
                                 },
                                 [_vm._v("Enviar")]
                               ),
