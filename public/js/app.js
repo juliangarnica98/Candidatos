@@ -2162,11 +2162,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         position: this.position,
         experiencie: this.experiencie
       }).then(function (response) {
-        console.log(333);
+        if (response.data != error) {
+          console.log(response);
+        }
         me.clearFields(); //Limpiamos los campos e inicializamos la variable update a 0
-        me.$swal('Candidato creado correctamente');
-      })["catch"](function (error) {
-        console.log(error);
+        //me.$swal(response.data);
+      })["catch"](function (response) {
+        if (response.data == error) {
+          me.$swal(response.data);
+        }
       });
     }
   }

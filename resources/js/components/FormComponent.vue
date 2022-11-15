@@ -98,13 +98,17 @@
                     position:this.position,
                     experiencie:this.experiencie,
                 }).then(function (response) {
-                    console.log(333);
+                    if(response.data != error){
+                        console.log(response)
+                    }
                     me.clearFields();//Limpiamos los campos e inicializamos la variable update a 0
-                    me.$swal('Candidato creado correctamente');
-                
+                    //me.$swal(response.data);
                 })
-                .catch(function (error) {
-                    console.log(error);
+                .catch(function (response) {
+                    if(response.data == error){
+                        me.$swal(response.data);
+                    }
+                    
                 });   
             }
             
