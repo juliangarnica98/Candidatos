@@ -14,9 +14,7 @@
     <div id="app">
             <v-app>
                 <v-main>
-                    <v-container>
-                        <form-component></form-component>
-                    </v-container>
+                    <form-component></form-component>
                 </v-main>
             </v-app>
         </v-parallax>

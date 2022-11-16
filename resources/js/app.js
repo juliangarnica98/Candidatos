@@ -14,6 +14,7 @@ require('./bootstrap');
 	Vue.use(Vuetify)
 	Vue.use(VueSweetalert2,options);
 	Vue.component('form-component',require('./components/FormComponent.vue').default)
+	Vue.component('main-component',require('./components/Main.vue').default)
 
 	const app = new Vue({
 		vuetify: new Vuetify(),
